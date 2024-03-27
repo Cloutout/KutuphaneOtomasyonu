@@ -1,0 +1,57 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneArayuz\\KutuphaneOtomasyon\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|c:\\users\\merti\\onedrive\\masa\u00FCst\u00FC\\kutuphanearayuz\\kutuphaneotomasyon\\girisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:girisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneArayuz\\KutuphaneOtomasyon\\girisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:girisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GirisForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneArayuz\\KutuphaneOtomasyon\\GirisForm.cs",
+              "RelativeDocumentMoniker": "GirisForm.cs",
+              "ToolTip": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneArayuz\\KutuphaneOtomasyon\\GirisForm.cs [Design]",
+              "RelativeToolTip": "GirisForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-27T21:10:46.595Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GirisForm.cs",
+              "DocumentMoniker": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneArayuz\\KutuphaneOtomasyon\\GirisForm.cs",
+              "RelativeDocumentMoniker": "GirisForm.cs",
+              "ToolTip": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneArayuz\\KutuphaneOtomasyon\\GirisForm.cs",
+              "RelativeToolTip": "GirisForm.cs",
+              "ViewState": "AQIAACEAAAAAAAAAAAAtwC4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-25T18:54:07.696Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
