@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
+      "projectUniqueName": "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneArayuz\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
       "projectName": "KutuphaneOtomasyon",
-      "projectPath": "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
+      "projectPath": "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneArayuz\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
       "packagesPath": "C:\\Users\\merti\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyon\\obj\\",
+      "outputPath": "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneArayuz\\KutuphaneOtomasyon\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
