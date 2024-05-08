@@ -56,7 +56,7 @@
             masalarGroupBox.AutoSize = true;
             masalarGroupBox.Location = new Point(373, 30);
             masalarGroupBox.Name = "masalarGroupBox";
-            masalarGroupBox.Size = new Size(339, 540);
+            masalarGroupBox.Size = new Size(401, 540);
             masalarGroupBox.TabIndex = 2;
             masalarGroupBox.TabStop = false;
             masalarGroupBox.Text = "Masalar";
@@ -105,36 +105,36 @@
             // gostergeLabel
             // 
             gostergeLabel.AutoSize = true;
-            gostergeLabel.Location = new Point(25, 555);
+            gostergeLabel.Location = new Point(12, 555);
             gostergeLabel.Name = "gostergeLabel";
             gostergeLabel.Size = new Size(63, 15);
             gostergeLabel.TabIndex = 7;
-            gostergeLabel.Text = "Koltuk Boş";
+            gostergeLabel.Text = "Boş Koltuk";
             // 
             // gostergeLabel2
             // 
             gostergeLabel2.AutoSize = true;
-            gostergeLabel2.Location = new Point(122, 555);
+            gostergeLabel2.Location = new Point(124, 555);
             gostergeLabel2.Name = "gostergeLabel2";
-            gostergeLabel2.Size = new Size(47, 15);
+            gostergeLabel2.Size = new Size(34, 15);
             gostergeLabel2.TabIndex = 8;
-            gostergeLabel2.Text = "Molada";
+            gostergeLabel2.Text = "Mola";
             // 
             // gostergeLabel3
             // 
             gostergeLabel3.AutoSize = true;
-            gostergeLabel3.Location = new Point(218, 555);
+            gostergeLabel3.Location = new Point(211, 555);
             gostergeLabel3.Name = "gostergeLabel3";
             gostergeLabel3.Size = new Size(69, 15);
             gostergeLabel3.TabIndex = 9;
-            gostergeLabel3.Text = "Koltuk Dolu";
+            gostergeLabel3.Text = "Dolu Koltuk";
             // 
             // FormGiris
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(724, 647);
+            ClientSize = new Size(832, 647);
             Controls.Add(gostergeLabel3);
             Controls.Add(gostergeLabel2);
             Controls.Add(gostergeLabel);

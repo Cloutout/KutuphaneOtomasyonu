@@ -60,3 +60,12 @@ C:\Users\merti\OneDrive\Masaüstü\KutuphaneOtomasyon\obj\Debug\net8.0-windows\K
 C:\Users\merti\OneDrive\Masaüstü\KutuphaneOtomasyon\obj\Debug\net8.0-windows\KutuphaneOtomasyon.genruntimeconfig.cache
 C:\Users\merti\OneDrive\Masaüstü\KutuphaneOtomasyon\obj\Debug\net8.0-windows\ref\KutuphaneOtomasyon.dll
 C:\Users\merti\OneDrive\Masaüstü\KutuphaneOtomasyon\obj\Debug\net8.0-windows\KutuphaneOtomasyon.CikisForm.resources
+C:\Users\merti\OneDrive\Masaüstü\KutuphaneOtomasyonu\KutuphaneArayuz\KutuphaneOtomasyon\obj\Debug\net8.0-windows\KutuphaneOtomasyon.CikisForm.resources
+C:\Users\merti\OneDrive\Masaüstü\KutuphaneOtomasyonu\KutuphaneArayuz\KutuphaneOtomasyon\bin\Debug\net8.0-windows\System.Data.SqlClient.dll
+C:\Users\merti\OneDrive\Masaüstü\KutuphaneOtomasyonu\KutuphaneArayuz\KutuphaneOtomasyon\bin\Debug\net8.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\merti\OneDrive\Masaüstü\KutuphaneOtomasyonu\KutuphaneArayuz\KutuphaneOtomasyon\bin\Debug\net8.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\merti\OneDrive\Masaüstü\KutuphaneOtomasyonu\KutuphaneArayuz\KutuphaneOtomasyon\bin\Debug\net8.0-windows\runtimes\win-x86\native\sni.dll
+C:\Users\merti\OneDrive\Masaüstü\KutuphaneOtomasyonu\KutuphaneArayuz\KutuphaneOtomasyon\bin\Debug\net8.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\merti\OneDrive\Masaüstü\KutuphaneOtomasyonu\KutuphaneArayuz\KutuphaneOtomasyon\bin\Debug\net8.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\merti\OneDrive\Masaüstü\KutuphaneOtomasyonu\KutuphaneArayuz\KutuphaneOtomasyon\obj\Debug\net8.0-windows\KutuphaneOtomasyon.csproj.AssemblyReference.cache
+C:\Users\merti\OneDrive\Masaüstü\KutuphaneOtomasyonu\KutuphaneArayuz\KutuphaneOtomasyon\obj\Debug\net8.0-windows\Kutuphan.CB99DEDF.Up2Date

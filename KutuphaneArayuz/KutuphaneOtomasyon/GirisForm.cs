@@ -2,65 +2,69 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Data.SqlTypes;
 
 namespace KutuphaneOtomasyon
 {
     public partial class FormGiris : Form
     {
-        int toplamMasaSayisi = 12;
+        
+        int toplamMasaSayisi;
         int seciliMasaNumarasi;
+
 
         public FormGiris()
         {
             InitializeComponent();
-            MasaSayisi(toplamMasaSayisi);
+            MasalariGetir();
+            
         }
 
-        //TODO sayý yazýlan textboxýn yazýlýp entera basýldýðýnda silinmesi gerekiyor
+        string connectionString = "Data Source=MERT;Initial Catalog=kutuphaneDB;Integrated Security=True";
 
 
-        //Masalarý oluþturmak için kullanýlan fonksiyon
-        public void MasaSayisi(int sayý)
+        private void MasalariGetir()
         {
-            int resimBoyutu = 100;
-            int sýraSayýsý = (int)Math.Ceiling((double)sayý / 3);
-
-            for (int i = 0; i < sayý; i++)
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                PictureBox pictureBox = new PictureBox();
-                pictureBox.Name = "masa" + (i + 1).ToString();
-                pictureBox.Image = Image.FromFile("C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyon\\Resources\\desk.png");
-                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                pictureBox.Width = resimBoyutu;
-                pictureBox.Height = resimBoyutu;
-                pictureBox.Location = new Point((i % 3) * (resimBoyutu + 10), (i / 3) * (resimBoyutu + 30));
+                string query = "SELECT COUNT(*) AS MasaAdet FROM Tbl_Masalar";
+                SqlCommand command = new SqlCommand(query, connection);
 
-                Label label = new Label();
-                label.Text = "Masa No: " + (i + 1);
-                label.AutoSize = true;
-                label.Location = new Point(pictureBox.Location.X, pictureBox.Location.Y + resimBoyutu);
+                
+                    connection.Open();
+                    int masaAdet = (int)command.ExecuteScalar();
+                    toplamMasaSayisi = masaAdet; // Toplam masa sayýsýný güncelle
 
-                masalarGroupBox.Controls.Add(label);
-                masalarGroupBox.Controls.Add(pictureBox);
+                    int resimBoyutu = 100;
+                    int sýraSayýsý = (int)Math.Ceiling((double)masaAdet / 3);
 
-                seciliMasaNumarasi = i + 1;
+                    for (int i = 0; i < masaAdet; i++)
+                    {
+                        PictureBox pictureBox = new PictureBox();
+                        pictureBox.Name = "masa" + (i + 1).ToString();
+                        pictureBox.Image = Image.FromFile("C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneArayuz\\KutuphaneOtomasyon\\Resources\\desk.png");
+                        pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                        pictureBox.Width = resimBoyutu;
+                        pictureBox.Height = resimBoyutu;
+                        pictureBox.Location = new Point((i % 3) * (resimBoyutu + 10), (i / 3) * (resimBoyutu + 30));
+
+                        Label label = new Label();
+                        label.Text = "Masa No: " + (i + 1);
+                        label.AutoSize = true;
+                        label.Location = new Point(pictureBox.Location.X, pictureBox.Location.Y + resimBoyutu);
+
+                        masalarGroupBox.Controls.Add(label);
+                        masalarGroupBox.Controls.Add(pictureBox);
+
+                        seciliMasaNumarasi = i + 1;
+                       
+                    }
+                
             }
         }
 
-        //dummy datalar (neyi denemek için yazdýðýmý unuttum)
-        public void ogrencilerList()
-        {
-            Dictionary<string,int> ogrenciler = new Dictionary<string,int>();
 
-            ogrenciler["Ahmet"]=123;
-            ogrenciler["Mehmet"] = 321;
-            ogrenciler["Veli"] = 456;
-            ogrenciler["Ali"] = 654;
-            ogrenciler["Ayþe"] = 789;
-            ogrenciler["Fatma"] = 987;
-        }
-
-        //kullanýcýnýn masa numarasýný seçtiðinde gerçekleþen event
         private void masaNoTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -71,7 +75,38 @@ namespace KutuphaneOtomasyon
                 {
                     if (secilenMasaNumarasi >= 1 && secilenMasaNumarasi <= toplamMasaSayisi)
                     {
-                        MessageBox.Show($"Seçilen masa numarasý: {secilenMasaNumarasi}\n\nMasayý baþarýyla seçtiniz.", "Masa Seçildi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        using (SqlConnection connection = new SqlConnection(connectionString))
+                        {
+                            string query = "SELECT isAvaible FROM Tbl_Masalar WHERE MasaNo = @masaNo";
+                            SqlCommand command = new SqlCommand(query, connection);
+                            command.Parameters.AddWithValue("@masaNo", secilenMasaNumarasi);
+
+                           
+                                connection.Open();
+                                bool isAvailable = (bool)command.ExecuteScalar();
+                                if (isAvailable)
+                                {
+                                    MessageBox.Show($"Seçilen masa numarasý: {secilenMasaNumarasi}\n\nMasayý baþarýyla seçtiniz.", "Masa Seçildi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                    // Masa dolu olduðunda arka planý kýrmýzý yap
+                                    Control[] controls = masalarGroupBox.Controls.Find("masa" + secilenMasaNumarasi.ToString(), true);
+                                    if (controls.Length > 0 && controls[0] is PictureBox)
+                                    {
+                                        PictureBox pictureBox = (PictureBox)controls[0];
+                                        pictureBox.BackColor = Color.Red;
+                                    }
+
+                                    // Masa durumunu veritabanýnda güncelle
+                                    query = "UPDATE Tbl_Masalar SET isAvaible = 0 WHERE MasaNo = @masaNo";
+                                    command.CommandText = query;
+                                    command.ExecuteNonQuery();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Seçilen masa dolu! Lütfen baþka bir masa seçin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                           
+                        }
                     }
                     else
                     {
@@ -80,5 +115,11 @@ namespace KutuphaneOtomasyon
                 }
             }
         }
+
+
+
+
+
+
     }
 }

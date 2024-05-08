@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "T/W2iOQJtZx2gidHfAREaVVlbyPf82F5gG/Kn83wUFNIXHsqqBlPD7SgZDzLeMCsb2Ntq65KpuVVFc1LgQdZ8Q==",
+  "dgSpecHash": "54sxF8g9BWfErOo/744LAyF0KNvXXIpW4j7SFc/yUI6azSmuCrxKJX7AFu+qvbo5FQhmGJfb5SIhOQvigPOfNg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneArayuz\\WinFormsApp1\\WinFormsApp1.csproj",
+  "projectFilePath": "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneArayuz\\eski\\WinFormsApp1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\merti\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\merti\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
