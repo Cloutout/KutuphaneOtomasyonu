@@ -37,6 +37,7 @@
             gostergeLabel = new Label();
             gostergeLabel2 = new Label();
             gostergeLabel3 = new Label();
+            ogrenciNoTextBox = new TextBox();
             ((System.ComponentModel.ISupportInitialize)gostergePB).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gostergePB2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gostergePB3).BeginInit();
@@ -129,12 +130,20 @@
             gostergeLabel3.TabIndex = 9;
             gostergeLabel3.Text = "Dolu Koltuk";
             // 
+            // ogrenciNoTextBox
+            // 
+            ogrenciNoTextBox.Location = new Point(12, 154);
+            ogrenciNoTextBox.Name = "ogrenciNoTextBox";
+            ogrenciNoTextBox.Size = new Size(245, 23);
+            ogrenciNoTextBox.TabIndex = 10;
+            // 
             // FormGiris
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
             ClientSize = new Size(832, 647);
+            Controls.Add(ogrenciNoTextBox);
             Controls.Add(gostergeLabel3);
             Controls.Add(gostergeLabel2);
             Controls.Add(gostergeLabel);
@@ -164,5 +173,6 @@
         private Label gostergeLabel;
         private Label gostergeLabel2;
         private Label gostergeLabel3;
+        private TextBox ogrenciNoTextBox;
     }
 }

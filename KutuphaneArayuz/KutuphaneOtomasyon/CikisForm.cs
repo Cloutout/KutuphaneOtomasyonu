@@ -13,8 +13,7 @@ namespace KutuphaneOtomasyon
 {
     public partial class CikisForm : Form
     {
-        int toplamMasaSayisi;
-        int seciliMasaNumarasi;
+        
 
         public CikisForm()
         {
@@ -22,16 +21,6 @@ namespace KutuphaneOtomasyon
             
             
         }
-
-
-
-
-
-
-
-
-
-
 
 
 
