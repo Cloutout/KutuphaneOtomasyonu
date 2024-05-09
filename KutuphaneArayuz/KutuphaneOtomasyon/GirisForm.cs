@@ -18,7 +18,8 @@ namespace KutuphaneOtomasyon
         {
             InitializeComponent();
             MasalariGetir();
-            
+            UpdateTableStatus();
+
         }
 
         string connectionString = "Data Source=MERT;Initial Catalog=kutuphaneDB;Integrated Security=True";
@@ -94,6 +95,7 @@ namespace KutuphaneOtomasyon
                                         PictureBox pictureBox = (PictureBox)controls[0];
                                         pictureBox.BackColor = Color.Red;
                                     }
+                                    
 
                                     // Masa durumunu veritabanýnda güncelle
                                     query = "UPDATE Tbl_Masalar SET isAvaible = 0 WHERE MasaNo = @masaNo";
@@ -114,6 +116,43 @@ namespace KutuphaneOtomasyon
                 }
             }
         }
+
+        
+        private void UpdateTableStatus()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT MasaNo, isAvaible FROM Tbl_Masalar";
+                SqlCommand command = new SqlCommand(query, connection);
+
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        int masaNo = Convert.ToInt32(reader["MasaNo"]);
+                        bool isAvailable = Convert.ToBoolean(reader["isAvaible"]);
+
+                        
+                        Control[] controls = masalarGroupBox.Controls.Find("masa" + masaNo.ToString(), true);
+                        if (controls.Length > 0 && controls[0] is PictureBox)
+                        {
+                            PictureBox pictureBox = (PictureBox)controls[0];
+                            
+                            if (isAvailable)
+                            {
+                                pictureBox.BackColor = Color.Green; 
+                            }
+                            else
+                            {
+                                pictureBox.BackColor = Color.Red; 
+                            }
+                        }
+                    }
+                
+            }
+        }
+
 
 
 

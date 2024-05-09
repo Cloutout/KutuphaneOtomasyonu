@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KutuphaneOtomasyon")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aa9ec260b9263075a28f2a6202b57345dad0945e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b35faba9197e5424eac00cfbc816fb93dec8f8b6")]
 [assembly: System.Reflection.AssemblyProductAttribute("KutuphaneOtomasyon")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KutuphaneOtomasyon")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
