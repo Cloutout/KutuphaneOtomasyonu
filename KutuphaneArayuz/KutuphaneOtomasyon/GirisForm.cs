@@ -34,7 +34,7 @@ namespace KutuphaneOtomasyon
                 
                     connection.Open();
                     int masaAdet = (int)command.ExecuteScalar();
-                    toplamMasaSayisi = masaAdet; // Toplam masa sayýsýný güncelle
+                    toplamMasaSayisi = masaAdet;
 
                     int resimBoyutu = 100;
                     int sýraSayýsý = (int)Math.Ceiling((double)masaAdet / 3);
@@ -69,27 +69,26 @@ namespace KutuphaneOtomasyon
         {
             if (e.KeyCode == Keys.Enter)
             {
-                int secilenMasaNumarasi;
-
-                if (int.TryParse(masaNoTextBox.Text, out secilenMasaNumarasi))
+                
+                if (int.TryParse(masaNoTextBox.Text, out seciliMasaNumarasi))
                 {
-                    if (secilenMasaNumarasi >= 1 && secilenMasaNumarasi <= toplamMasaSayisi)
+                    if (seciliMasaNumarasi >= 1 && seciliMasaNumarasi <= toplamMasaSayisi)
                     {
                         using (SqlConnection connection = new SqlConnection(connectionString))
                         {
                             string query = "SELECT isAvaible FROM Tbl_Masalar WHERE MasaNo = @masaNo";
                             SqlCommand command = new SqlCommand(query, connection);
-                            command.Parameters.AddWithValue("@masaNo", secilenMasaNumarasi);
+                            command.Parameters.AddWithValue("@masaNo", seciliMasaNumarasi);
 
                            
                                 connection.Open();
                                 bool isAvailable = (bool)command.ExecuteScalar();
                                 if (isAvailable)
                                 {
-                                    MessageBox.Show($"Seçilen masa numarasý: {secilenMasaNumarasi}\n\nMasayý baþarýyla seçtiniz.", "Masa Seçildi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    MessageBox.Show($"Seçilen masa numarasý: {seciliMasaNumarasi}\n\nMasayý baþarýyla seçtiniz.", "Masa Seçildi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                                     // Masa dolu olduðunda arka planý kýrmýzý yap
-                                    Control[] controls = masalarGroupBox.Controls.Find("masa" + secilenMasaNumarasi.ToString(), true);
+                                    Control[] controls = masalarGroupBox.Controls.Find("masa" + seciliMasaNumarasi.ToString(), true);
                                     if (controls.Length > 0 && controls[0] is PictureBox)
                                     {
                                         PictureBox pictureBox = (PictureBox)controls[0];
