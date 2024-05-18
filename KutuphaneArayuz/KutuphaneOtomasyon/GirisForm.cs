@@ -12,6 +12,8 @@ namespace KutuphaneOtomasyon
         
         int toplamMasaSayisi;
         int seciliMasaNumarasi;
+        public delegate void TableAvailabilityChangedEventHandler(int tableNumber);
+        public event TableAvailabilityChangedEventHandler OnTableAvailabilityChanged;
 
 
         public FormGiris()
@@ -106,7 +108,9 @@ namespace KutuphaneOtomasyon
                                 {
                                     MessageBox.Show("Seçilen masa dolu! Lütfen baþka bir masa seçin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
-                           
+
+                                OnTableAvailabilityChanged?.Invoke(seciliMasaNumarasi);
+
                         }
                     }
                     else
@@ -148,6 +152,7 @@ namespace KutuphaneOtomasyon
                                 pictureBox.BackColor = Color.Red; 
                             }
                         }
+                    OnTableAvailabilityChanged?.Invoke(masaNo);
                     }
                 
             }

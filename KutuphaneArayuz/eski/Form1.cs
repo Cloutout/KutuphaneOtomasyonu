@@ -208,4 +208,243 @@ namespace WinFormsApp1
     }
 
 }
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+
+namespace KutuphaneOtomasyon
+    {
+        public partial class FormGiris : Form
+        {
+            int toplamMasaSayisi;
+            string ogrenciNo;
+            string connectionString = "Data Source=MERT;Initial Catalog=kutuphaneDB;Integrated Security=True";
+
+            public FormGiris()
+            {
+                InitializeComponent();
+                try
+                {
+                    MasalariGetir();
+                    UpdateTableStatus();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            private void MasalariGetir()
+            {
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        string query = "SELECT COUNT(*) AS MasaAdet FROM Tbl_Masalar";
+                        SqlCommand command = new SqlCommand(query, connection);
+
+                        connection.Open();
+                        int masaAdet = (int)command.ExecuteScalar();
+                        toplamMasaSayisi = masaAdet;
+
+                        int resimBoyutu = 100;
+                        int sýraSayýsý = (int)Math.Ceiling((double)masaAdet / 3);
+
+                        for (int i = 0; i < masaAdet; i++)
+                        {
+                            PictureBox pictureBox = new PictureBox
+                            {
+                                Name = "masa" + (i + 1),
+                                Image = Image.FromFile("C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneArayuz\\KutuphaneOtomasyon\\Resources\\desk.png"),
+                                SizeMode = PictureBoxSizeMode.StretchImage,
+                                Width = resimBoyutu,
+                                Height = resimBoyutu,
+                                Location = new Point((i % 3) * (resimBoyutu + 10), (i / 3) * (resimBoyutu + 30))
+                            };
+
+                            Label label = new Label
+                            {
+                                Text = "Masa No: " + (i + 1),
+                                AutoSize = true,
+                                Location = new Point(pictureBox.Location.X, pictureBox.Location.Y + resimBoyutu)
+                            };
+
+                            masalarGroupBox.Controls.Add(label);
+                            masalarGroupBox.Controls.Add(pictureBox);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error retrieving tables: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            private void RFIDCardScanned(string rfidCardNumber)
+            {
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+
+                        // Check if RFID card number matches an existing student
+                        string query = "SELECT ogrenciNo FROM Tbl_Ogrenciler WHERE rfidCardNumber = @rfidCardNumber";
+                        SqlCommand command = new SqlCommand(query, connection);
+                        command.Parameters.AddWithValue("@rfidCardNumber", rfidCardNumber);
+
+                        object result = command.ExecuteScalar();
+                        if (result == null)
+                        {
+                            MessageBox.Show("Geçersiz kart numarasý! Lütfen geçerli bir kart kullanýn.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        ogrenciNo = result.ToString();
+
+                        // Check if the student already has a table assigned
+                        query = "SELECT COUNT(*) FROM Tbl_Masalar WHERE ogrenciNo = @ogrenciNo";
+                        command = new SqlCommand(query, connection);
+                        command.Parameters.AddWithValue("@ogrenciNo", ogrenciNo);
+
+                        int existingTables = (int)command.ExecuteScalar();
+                        if (existingTables > 0)
+                        {
+                            MessageBox.Show("Bu öðrenci zaten bir masa almýþ.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        // Prompt the user to select a table number
+                        MessageBox.Show("Lütfen masa numarasýný seçiniz.", "Masa Seçimi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            private void masaNoTextBox_KeyDown(object sender, KeyEventArgs e)
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    try
+                    {
+                        if (int.TryParse(masaNoTextBox.Text, out int seciliMasaNumarasi))
+                        {
+                            if (seciliMasaNumarasi >= 1 && seciliMasaNumarasi <= toplamMasaSayisi)
+                            {
+                                AssignTableToStudent(ogrenciNo, seciliMasaNumarasi);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Geçersiz masa numarasý! Lütfen geçerli bir masa numarasý girin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+
+            private void AssignTableToStudent(string ogrenciNo, int masaNo)
+            {
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        string query = "SELECT isAvaible FROM Tbl_Masalar WHERE MasaNo = @masaNo";
+                        SqlCommand command = new SqlCommand(query, connection);
+                        command.Parameters.AddWithValue("@masaNo", masaNo);
+
+                        connection.Open();
+                        bool isAvailable = (bool)command.ExecuteScalar();
+                        if (isAvailable)
+                        {
+                            MessageBox.Show($"Seçilen masa numarasý: {masaNo}\n\nMasayý baþarýyla seçtiniz.", "Masa Seçildi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            UpdateTableVisual(masaNo, Color.Red);
+
+                            query = "UPDATE Tbl_Masalar SET isAvaible = 0, ogrenciNo = @ogrenciNo WHERE MasaNo = @masaNo";
+                            command = new SqlCommand(query, connection);
+                            command.Parameters.AddWithValue("@ogrenciNo", ogrenciNo);
+                            command.Parameters.AddWithValue("@masaNo", masaNo);
+                            command.ExecuteNonQuery();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Seçilen masa dolu! Lütfen baþka bir masa seçin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            private void UpdateTableStatus()
+            {
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        string query = "SELECT MasaNo, isAvaible FROM Tbl_Masalar";
+                        SqlCommand command = new SqlCommand(query, connection);
+
+                        connection.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            int masaNo = Convert.ToInt32(reader["MasaNo"]);
+                            bool isAvailable = Convert.ToBoolean(reader["isAvaible"]);
+                            UpdateTableVisual(masaNo, isAvailable ? Color.Green : Color.Red);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error updating table status: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            private void UpdateTableVisual(int masaNo, Color color)
+            {
+                Control[] controls = masalarGroupBox.Controls.Find("masa" + masaNo.ToString(), true);
+                if (controls.Length > 0 && controls[0] is PictureBox pictureBox)
+                {
+                    if (this.InvokeRequired)
+                    {
+                        this.Invoke(new Action(() => pictureBox.BackColor = color));
+                    }
+                    else
+                    {
+                        pictureBox.BackColor = color;
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
 

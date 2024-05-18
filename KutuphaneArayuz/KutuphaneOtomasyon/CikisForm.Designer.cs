@@ -28,18 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+            masalarGroupBox = new GroupBox();
             SuspendLayout();
+            // 
+            // masalarGroupBox
+            // 
+            masalarGroupBox.Location = new Point(12, 12);
+            masalarGroupBox.Name = "masalarGroupBox";
+            masalarGroupBox.Size = new Size(868, 551);
+            masalarGroupBox.TabIndex = 0;
+            masalarGroupBox.TabStop = false;
+            masalarGroupBox.Text = "Masalar";
             // 
             // CikisForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(892, 575);
+            Controls.Add(masalarGroupBox);
             Name = "CikisForm";
             Text = "CikisForm";
             ResumeLayout(false);
         }
 
         #endregion
+
+        private GroupBox masalarGroupBox;
     }
 }
