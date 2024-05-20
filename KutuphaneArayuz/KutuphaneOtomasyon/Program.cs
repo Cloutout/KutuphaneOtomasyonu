@@ -13,15 +13,15 @@ namespace KutuphaneOtomasyon
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Form1 ve Form2 için örnekler oluþturun
-            FormGiris girisForm = new FormGiris(); // Create an instance of FormGiris
-            CikisForm cikisForm = new CikisForm(girisForm); // Pass the FormGiris instance to CikisForm constructor
+            
+            FormGiris girisForm = new FormGiris(); 
+            CikisForm cikisForm = new CikisForm(girisForm); 
 
-            // Ýki formu ayný anda gösterin
+            
             girisForm.Show();
             cikisForm.Show();
 
-            // Ana uygulamayý baþlatýn
+            
             Application.Run();
         }
     }

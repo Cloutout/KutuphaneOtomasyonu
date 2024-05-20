@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Drawing;
+using System.IO.Ports;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using System.Data.SqlTypes;
-using System.IO.Ports;
 
 namespace KutuphaneOtomasyon
 {
@@ -15,14 +13,101 @@ namespace KutuphaneOtomasyon
         public delegate void TableAvailabilityChangedEventHandler(int tableNumber);
         public event TableAvailabilityChangedEventHandler OnTableAvailabilityChanged;
 
+        private SerialPort serialPort;
+        private string connectionString = "Data Source=DESKTOP-N7TL0LE;Initial Catalog=kutuphaneDB;Integrated Security=True";
+
         public FormGiris()
         {
             InitializeComponent();
             MasalariGetir();
             UpdateTableStatus();
+            InitializeSerialPort();
         }
 
-        string connectionString = "Data Source=MERT;Initial Catalog=kutuphaneDB;Integrated Security=True";
+        private void InitializeSerialPort()
+        {
+            string portName = "COM3";
+            int baudRate = 9600;
+
+            serialPort = new SerialPort(portName, baudRate);
+            serialPort.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);
+            try
+            {
+                serialPort.Open();
+                Console.WriteLine("Veri bekleniyor... (Çýkmak için Ctrl+C)");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Seri port açýlamadý: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            try
+            {
+                string data = serialPort.ReadLine().Trim();
+                this.Invoke(new Action(() => ProcessReceivedData(data)));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Veri okunamadý: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ProcessReceivedData(string data)
+        {
+            string ogrenciKartNumarasi = data;
+            if (seciliMasaNumarasi == 0)
+            {
+                MessageBox.Show("Lütfen önce masa numarasýný giriniz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string query = "SELECT COUNT(*) FROM Tbl_Ogrenciler WHERE ogrenciNo = @ogrenciNo";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ogrenciNo", ogrenciKartNumarasi);
+                connection.Open();
+                int ogrenciCount = (int)command.ExecuteScalar();
+
+                if (ogrenciCount > 0)
+                {
+                    query = "SELECT COUNT(*) FROM Tbl_Masalar WHERE ogrenciNo = @ogrenciNo";
+                    command.CommandText = query;
+                    command.Parameters.Clear();
+                    command.Parameters.AddWithValue("@ogrenciNo", ogrenciKartNumarasi);
+                    int masaCount = (int)command.ExecuteScalar();
+
+                    if (masaCount > 0)
+                    {
+                        MessageBox.Show("Bu öðrenci numarasýna zaten bir masa atanmýþ! Lütfen baþka bir kart okutunuz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        query = "UPDATE Tbl_Masalar SET isAvaible = 0, ogrenciNo = (SELECT ogrenciNo FROM Tbl_Ogrenciler WHERE ogrenciNo = @ogrenciNo) WHERE MasaNo = @masaNo";
+                        command.CommandText = query;
+                        command.Parameters.AddWithValue("@masaNo", seciliMasaNumarasi);
+                        command.ExecuteNonQuery();
+
+                        Control[] controls = masalarGroupBox.Controls.Find("masa" + seciliMasaNumarasi.ToString(), true);
+                        if (controls.Length > 0 && controls[0] is PictureBox pictureBox)
+                        {
+                            pictureBox.BackColor = Color.Red;
+                        }
+
+                        MessageBox.Show($"Seçilen masa numarasý: {seciliMasaNumarasi}\n\nMasayý baþarýyla seçtiniz.", "Masa Seçildi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        OnTableAvailabilityChanged?.Invoke(seciliMasaNumarasi);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Geçersiz kart numarasý! Lütfen geçerli bir kart okutunuz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
 
         private void MasalariGetir()
         {
@@ -42,7 +127,7 @@ namespace KutuphaneOtomasyon
                 {
                     PictureBox pictureBox = new PictureBox();
                     pictureBox.Name = "masa" + (i + 1).ToString();
-                    pictureBox.Image = Image.FromFile("C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneArayuz\\KutuphaneOtomasyon\\Resources\\desk.png");
+                    pictureBox.Image = Image.FromFile("C:\\Users\\Furkan\\Downloads\\KutuphaneOtomasyonu-main (3)\\KutuphaneOtomasyonu-main\\KutuphaneArayuz\\KutuphaneOtomasyon\\Resources\\desk.png");
                     pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBox.Width = resimBoyutu;
                     pictureBox.Height = resimBoyutu;
@@ -55,8 +140,6 @@ namespace KutuphaneOtomasyon
 
                     masalarGroupBox.Controls.Add(label);
                     masalarGroupBox.Controls.Add(pictureBox);
-
-                    seciliMasaNumarasi = i + 1;
                 }
             }
         }
@@ -65,7 +148,7 @@ namespace KutuphaneOtomasyon
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (int.TryParse(masaNoTextBox.Text, out int seciliMasaNumarasi))
+                if (int.TryParse(masaNoTextBox.Text, out seciliMasaNumarasi))
                 {
                     if (seciliMasaNumarasi >= 1 && seciliMasaNumarasi <= toplamMasaSayisi)
                     {
@@ -80,50 +163,6 @@ namespace KutuphaneOtomasyon
                             if (isAvailable)
                             {
                                 MessageBox.Show("Lütfen kartýnýzý okutunuz.", "Kart Okuma", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                string ogrenciKartNumarasi = ReadCardNumberFromArduino();
-
-                                query = "SELECT COUNT(*) FROM Tbl_Ogrenciler WHERE ogrenciNo = @ogrenciNo";
-                                command.CommandText = query;
-                                command.Parameters.Clear();
-                                command.Parameters.AddWithValue("@ogrenciNo", ogrenciKartNumarasi);
-                                int ogrenciCount = (int)command.ExecuteScalar();
-
-                                if (ogrenciCount > 0)
-                                {
-                                    // Check if the student already has a table assigned
-                                    query = "SELECT COUNT(*) FROM Tbl_Masalar WHERE ogrenciNo = @ogrenciNo";
-                                    command.CommandText = query;
-                                    command.Parameters.Clear();
-                                    command.Parameters.AddWithValue("@ogrenciNo", ogrenciKartNumarasi);
-                                    int masaCount = (int)command.ExecuteScalar();
-
-                                    if (masaCount > 0)
-                                    {
-                                        MessageBox.Show("Bu öðrenci numarasýna zaten bir masa atanmýþ! Lütfen baþka bir kart okutunuz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    }
-                                    else
-                                    {
-                                        query = "UPDATE Tbl_Masalar SET isAvaible = 0, ogrenciNo = (SELECT ogrenciNo FROM Tbl_Ogrenciler WHERE ogrenciNo = @ogrenciNo) WHERE MasaNo = @masaNo";
-                                        command.CommandText = query;
-                                        command.Parameters.AddWithValue("@masaNo", seciliMasaNumarasi);
-                                        command.ExecuteNonQuery();
-
-                                        Control[] controls = masalarGroupBox.Controls.Find("masa" + seciliMasaNumarasi.ToString(), true);
-                                        if (controls.Length > 0 && controls[0] is PictureBox pictureBox)
-                                        {
-                                            pictureBox.BackColor = Color.Red;
-                                        }
-
-                                        MessageBox.Show($"Seçilen masa numarasý: {seciliMasaNumarasi}\n\nMasayý baþarýyla seçtiniz.", "Masa Seçildi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                        OnTableAvailabilityChanged?.Invoke(seciliMasaNumarasi);
-                                    }
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Geçersiz kart numarasý! Lütfen geçerli bir kart okutunuz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
                             }
                             else
                             {
@@ -137,18 +176,6 @@ namespace KutuphaneOtomasyon
                     }
                 }
             }
-        }
-
-        private string ReadCardNumberFromArduino()
-        {
-           /* using (SerialPort serialPort = new SerialPort("COM3", 9600)) // Replace "COM3" with your actual COM port and 9600 with your baud rate
-            {
-                serialPort.Open();
-                string cardNumber = serialPort.ReadLine();
-                serialPort.Close();
-                return cardNumber.Trim(); // Use Trim() to remove any trailing newline characters
-            }*/
-           return "111";
         }
 
         private void UpdateTableStatus()
@@ -185,5 +212,4 @@ namespace KutuphaneOtomasyon
             }
         }
     }
-
 }
