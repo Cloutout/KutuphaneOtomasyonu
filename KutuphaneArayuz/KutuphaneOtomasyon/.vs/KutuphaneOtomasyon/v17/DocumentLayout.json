@@ -11,11 +11,11 @@
       "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:girisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneArayuz\\KutuphaneOtomasyon\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|c:\\users\\merti\\onedrive\\masa\u00FCst\u00FC\\kutuphaneotomasyonu\\kutuphanearayuz\\kutuphaneotomasyon\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneArayuz\\KutuphaneOtomasyon\\cikisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|c:\\users\\merti\\onedrive\\masa\u00FCst\u00FC\\kutuphaneotomasyonu\\kutuphanearayuz\\kutuphaneotomasyon\\cikisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:cikisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -40,7 +40,7 @@
               "RelativeDocumentMoniker": "GirisForm.cs",
               "ToolTip": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneArayuz\\KutuphaneOtomasyon\\GirisForm.cs",
               "RelativeToolTip": "GirisForm.cs",
-              "ViewState": "AQIAAG0AAAAAAAAAAAAowIQAAAAhAAAA",
+              "ViewState": "AQIAAIEAAAAAAAAAAAAqwJYAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-25T18:54:07.696Z",
               "IsPinned": true,
@@ -73,6 +73,10 @@
             },
             {
               "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
@@ -93,7 +97,8 @@
               "RelativeToolTip": "CikisForm.cs",
               "ViewState": "AQIAAJ8AAAAAAAAAAAAYwL4AAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-25T12:10:54.837Z"
+              "WhenOpened": "2024-04-25T12:10:54.837Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",

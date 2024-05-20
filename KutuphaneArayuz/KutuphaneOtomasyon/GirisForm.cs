@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
+using System.IO.Ports;
 
 namespace KutuphaneOtomasyon
 {
@@ -80,10 +81,8 @@ namespace KutuphaneOtomasyon
                             {
                                 MessageBox.Show("Lütfen kartýnýzý okutunuz.", "Kart Okuma", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                // Kart numarasý okutulduktan sonra gelen öðrenci numarasýný alýyoruz
                                 string ogrenciKartNumarasi = ReadCardNumberFromArduino();
 
-                                // Öðrenci kart numarasýný kontrol ediyoruz
                                 query = "SELECT COUNT(*) FROM Tbl_Ogrenciler WHERE ogrenciNo = @ogrenciNo";
                                 command.CommandText = query;
                                 command.Parameters.Clear();
@@ -92,26 +91,37 @@ namespace KutuphaneOtomasyon
 
                                 if (ogrenciCount > 0)
                                 {
-                                    // Öðrenci var, masa güncelleme iþlemi yapýlýyor
-                                    query = "UPDATE Tbl_Masalar SET isAvaible = 0, ogrenciNo = (SELECT ogrenciNo FROM Tbl_Ogrenciler WHERE ogrenciNo = @ogrenciNo) WHERE MasaNo = @masaNo";
+                                    // Check if the student already has a table assigned
+                                    query = "SELECT COUNT(*) FROM Tbl_Masalar WHERE ogrenciNo = @ogrenciNo";
                                     command.CommandText = query;
-                                    command.Parameters.AddWithValue("@masaNo", seciliMasaNumarasi);
-                                    command.ExecuteNonQuery();
+                                    command.Parameters.Clear();
+                                    command.Parameters.AddWithValue("@ogrenciNo", ogrenciKartNumarasi);
+                                    int masaCount = (int)command.ExecuteScalar();
 
-                                    // Masa rengi kýrmýzýya dönüyor
-                                    Control[] controls = masalarGroupBox.Controls.Find("masa" + seciliMasaNumarasi.ToString(), true);
-                                    if (controls.Length > 0 && controls[0] is PictureBox pictureBox)
+                                    if (masaCount > 0)
                                     {
-                                        pictureBox.BackColor = Color.Red;
+                                        MessageBox.Show("Bu öðrenci numarasýna zaten bir masa atanmýþ! Lütfen baþka bir kart okutunuz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     }
+                                    else
+                                    {
+                                        query = "UPDATE Tbl_Masalar SET isAvaible = 0, ogrenciNo = (SELECT ogrenciNo FROM Tbl_Ogrenciler WHERE ogrenciNo = @ogrenciNo) WHERE MasaNo = @masaNo";
+                                        command.CommandText = query;
+                                        command.Parameters.AddWithValue("@masaNo", seciliMasaNumarasi);
+                                        command.ExecuteNonQuery();
 
-                                    MessageBox.Show($"Seçilen masa numarasý: {seciliMasaNumarasi}\n\nMasayý baþarýyla seçtiniz.", "Masa Seçildi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        Control[] controls = masalarGroupBox.Controls.Find("masa" + seciliMasaNumarasi.ToString(), true);
+                                        if (controls.Length > 0 && controls[0] is PictureBox pictureBox)
+                                        {
+                                            pictureBox.BackColor = Color.Red;
+                                        }
 
-                                    OnTableAvailabilityChanged?.Invoke(seciliMasaNumarasi);
+                                        MessageBox.Show($"Seçilen masa numarasý: {seciliMasaNumarasi}\n\nMasayý baþarýyla seçtiniz.", "Masa Seçildi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                        OnTableAvailabilityChanged?.Invoke(seciliMasaNumarasi);
+                                    }
                                 }
                                 else
                                 {
-                                    // Geçersiz kart numarasý, iþlem sýfýrlanýyor
                                     MessageBox.Show("Geçersiz kart numarasý! Lütfen geçerli bir kart okutunuz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
@@ -128,9 +138,16 @@ namespace KutuphaneOtomasyon
                 }
             }
         }
+
         private string ReadCardNumberFromArduino()
         {
-            return "1604315732"; 
+            using (SerialPort serialPort = new SerialPort("COM3", 9600)) // Replace "COM3" with your actual COM port and 9600 with your baud rate
+            {
+                serialPort.Open();
+                string cardNumber = serialPort.ReadLine();
+                serialPort.Close();
+                return cardNumber.Trim(); // Use Trim() to remove any trailing newline characters
+            }
         }
 
         private void UpdateTableStatus()
