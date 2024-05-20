@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO.Ports;
 using System.Windows.Forms;
 
 namespace KutuphaneOtomasyon
@@ -8,8 +9,9 @@ namespace KutuphaneOtomasyon
     public partial class CikisForm : Form
     {
         int toplamMasaSayisi;
-        string connectionString = "Data Source=MERT;Initial Catalog=kutuphaneDB;Integrated Security=True;";
+        string connectionString = "Data Source=DESKTOP-N7TL0LE;Initial Catalog=kutuphaneDB;Integrated Security=True;";
         private FormGiris _girisForm;
+        private SerialPort _serialPort;
 
         public CikisForm(FormGiris girisForm)
         {
@@ -21,6 +23,31 @@ namespace KutuphaneOtomasyon
 
             // Giriş formundan gelen etkinliği dinle
             _girisForm.OnTableAvailabilityChanged += OnTableAvailabilityChanged;
+
+            // Seri port ayarları
+            _serialPort = new SerialPort("COM7", 9600);
+            _serialPort.DataReceived += SerialPort_DataReceived;
+            _serialPort.Open();
+        }
+
+        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            try
+            {
+                string kartVerisi = _serialPort.ReadLine().Trim();
+                if (!string.IsNullOrEmpty(kartVerisi))
+                {
+                    // Seri porttan gelen veriyi işlemek için Invoke kullan
+                    this.Invoke(new Action(() =>
+                    {
+                        ReleaseTableByStudentNumber(kartVerisi);
+                    }));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Seri porttan veri okuma hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void OnTableAvailabilityChanged(int tableNumber)
@@ -69,7 +96,7 @@ namespace KutuphaneOtomasyon
                         PictureBox pictureBox = new PictureBox
                         {
                             Name = "masa" + (i + 1),
-                            Image = Image.FromFile("C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneArayuz\\KutuphaneOtomasyon\\Resources\\desk.png"),
+                            Image = Image.FromFile("C:\\Users\\Furkan\\Downloads\\KutuphaneOtomasyonu-main (3)\\KutuphaneOtomasyonu-main\\KutuphaneArayuz\\KutuphaneOtomasyon\\Resources\\desk.png"),
                             SizeMode = PictureBoxSizeMode.StretchImage,
                             Width = resimBoyutu,
                             Height = resimBoyutu,
@@ -93,7 +120,6 @@ namespace KutuphaneOtomasyon
                 MessageBox.Show($"Tablolar alınırken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private void ReleaseTable(int masaNo)
         {
@@ -120,6 +146,35 @@ namespace KutuphaneOtomasyon
             }
         }
 
+        private void ReleaseTableByStudentNumber(string ogrenciNo)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "UPDATE Tbl_Masalar SET isAvaible = 1, ogrenciNo = NULL WHERE ogrenciNo = @ogrenciNo";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@ogrenciNo", ogrenciNo);
+
+                    connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show($"Öğrenci numarası: {ogrenciNo}\n\nMasa başarıyla boşaltıldı.", "Masa Boşaltıldı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        UpdateTableStatus();
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Öğrenci numarası: {ogrenciNo}\n\nEşleşen kayıt bulunamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void UpdateTableStatus()
         {

@@ -45,27 +45,30 @@
             // masaSecmeLabel
             // 
             masaSecmeLabel.AutoSize = true;
-            masaSecmeLabel.Location = new Point(12, 84);
+            masaSecmeLabel.Location = new Point(14, 112);
             masaSecmeLabel.Name = "masaSecmeLabel";
-            masaSecmeLabel.Size = new Size(275, 15);
+            masaSecmeLabel.Size = new Size(345, 20);
             masaSecmeLabel.TabIndex = 1;
             masaSecmeLabel.Text = "Lütfen Seçmek İstediğiniz Masa Numarasını Giriniz!";
             // 
             // masalarGroupBox
             // 
             masalarGroupBox.AutoSize = true;
-            masalarGroupBox.Location = new Point(373, 30);
+            masalarGroupBox.Location = new Point(426, 40);
+            masalarGroupBox.Margin = new Padding(3, 4, 3, 4);
             masalarGroupBox.Name = "masalarGroupBox";
-            masalarGroupBox.Size = new Size(401, 540);
+            masalarGroupBox.Padding = new Padding(3, 4, 3, 4);
+            masalarGroupBox.Size = new Size(458, 720);
             masalarGroupBox.TabIndex = 2;
             masalarGroupBox.TabStop = false;
             masalarGroupBox.Text = "Masalar";
             // 
             // masaNoTextBox
             // 
-            masaNoTextBox.Location = new Point(12, 102);
+            masaNoTextBox.Location = new Point(14, 136);
+            masaNoTextBox.Margin = new Padding(3, 4, 3, 4);
             masaNoTextBox.Name = "masaNoTextBox";
-            masaNoTextBox.Size = new Size(275, 23);
+            masaNoTextBox.Size = new Size(314, 27);
             masaNoTextBox.TabIndex = 3;
             masaNoTextBox.KeyDown += masaNoTextBox_KeyDown;
             // 
@@ -73,9 +76,10 @@
             // 
             gostergePB.BackColor = Color.Chartreuse;
             gostergePB.Image = Properties.Resources.desk;
-            gostergePB.Location = new Point(12, 478);
+            gostergePB.Location = new Point(14, 637);
+            gostergePB.Margin = new Padding(3, 4, 3, 4);
             gostergePB.Name = "gostergePB";
-            gostergePB.Size = new Size(76, 74);
+            gostergePB.Size = new Size(87, 99);
             gostergePB.SizeMode = PictureBoxSizeMode.StretchImage;
             gostergePB.TabIndex = 4;
             gostergePB.TabStop = false;
@@ -84,9 +88,10 @@
             // 
             gostergePB2.BackColor = Color.Yellow;
             gostergePB2.Image = Properties.Resources.desk;
-            gostergePB2.Location = new Point(108, 478);
+            gostergePB2.Location = new Point(123, 637);
+            gostergePB2.Margin = new Padding(3, 4, 3, 4);
             gostergePB2.Name = "gostergePB2";
-            gostergePB2.Size = new Size(76, 74);
+            gostergePB2.Size = new Size(87, 99);
             gostergePB2.SizeMode = PictureBoxSizeMode.StretchImage;
             gostergePB2.TabIndex = 5;
             gostergePB2.TabStop = false;
@@ -95,9 +100,10 @@
             // 
             gostergePB3.BackColor = Color.Red;
             gostergePB3.Image = Properties.Resources.desk;
-            gostergePB3.Location = new Point(211, 478);
+            gostergePB3.Location = new Point(241, 637);
+            gostergePB3.Margin = new Padding(3, 4, 3, 4);
             gostergePB3.Name = "gostergePB3";
-            gostergePB3.Size = new Size(76, 74);
+            gostergePB3.Size = new Size(87, 99);
             gostergePB3.SizeMode = PictureBoxSizeMode.StretchImage;
             gostergePB3.TabIndex = 6;
             gostergePB3.TabStop = false;
@@ -105,36 +111,36 @@
             // gostergeLabel
             // 
             gostergeLabel.AutoSize = true;
-            gostergeLabel.Location = new Point(12, 555);
+            gostergeLabel.Location = new Point(14, 740);
             gostergeLabel.Name = "gostergeLabel";
-            gostergeLabel.Size = new Size(63, 15);
+            gostergeLabel.Size = new Size(79, 20);
             gostergeLabel.TabIndex = 7;
             gostergeLabel.Text = "Boş Koltuk";
             // 
             // gostergeLabel2
             // 
             gostergeLabel2.AutoSize = true;
-            gostergeLabel2.Location = new Point(124, 555);
+            gostergeLabel2.Location = new Point(142, 740);
             gostergeLabel2.Name = "gostergeLabel2";
-            gostergeLabel2.Size = new Size(34, 15);
+            gostergeLabel2.Size = new Size(43, 20);
             gostergeLabel2.TabIndex = 8;
             gostergeLabel2.Text = "Mola";
             // 
             // gostergeLabel3
             // 
             gostergeLabel3.AutoSize = true;
-            gostergeLabel3.Location = new Point(211, 555);
+            gostergeLabel3.Location = new Point(241, 740);
             gostergeLabel3.Name = "gostergeLabel3";
-            gostergeLabel3.Size = new Size(69, 15);
+            gostergeLabel3.Size = new Size(87, 20);
             gostergeLabel3.TabIndex = 9;
             gostergeLabel3.Text = "Dolu Koltuk";
             // 
             // FormGiris
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(832, 647);
+            ClientSize = new Size(951, 863);
             Controls.Add(gostergeLabel3);
             Controls.Add(gostergeLabel2);
             Controls.Add(gostergeLabel);
@@ -144,7 +150,8 @@
             Controls.Add(masaNoTextBox);
             Controls.Add(masalarGroupBox);
             Controls.Add(masaSecmeLabel);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "FormGiris";
             Text = "Giriş Ekranı";
             ((System.ComponentModel.ISupportInitialize)gostergePB).EndInit();

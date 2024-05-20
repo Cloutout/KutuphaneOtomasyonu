@@ -31,15 +31,8 @@ namespace KutuphaneOtomasyon
 
             serialPort = new SerialPort(portName, baudRate);
             serialPort.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);
-            try
-            {
-                serialPort.Open();
-                Console.WriteLine("Veri bekleniyor... (Çýkmak için Ctrl+C)");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Seri port açýlamadý: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            serialPort.Open();
+          
         }
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
