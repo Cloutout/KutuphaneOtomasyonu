@@ -141,13 +141,14 @@ namespace KutuphaneOtomasyon
 
         private string ReadCardNumberFromArduino()
         {
-            using (SerialPort serialPort = new SerialPort("COM3", 9600)) // Replace "COM3" with your actual COM port and 9600 with your baud rate
+           /* using (SerialPort serialPort = new SerialPort("COM3", 9600)) // Replace "COM3" with your actual COM port and 9600 with your baud rate
             {
                 serialPort.Open();
                 string cardNumber = serialPort.ReadLine();
                 serialPort.Close();
                 return cardNumber.Trim(); // Use Trim() to remove any trailing newline characters
-            }
+            }*/
+           return "111";
         }
 
         private void UpdateTableStatus()

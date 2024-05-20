@@ -94,35 +94,6 @@ namespace KutuphaneOtomasyon
             }
         }
 
-        private void RFIDCardScanned(string rfidCardNumber)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-
-                    // Öğrencinin atanmış bir masa olup olmadığını kontrol et
-                    string query = "SELECT MasaNo FROM Tbl_Masalar WHERE ogrenciNo = @rfidCardNumber";
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@rfidCardNumber", rfidCardNumber);
-
-                    object masaNoObj = command.ExecuteScalar();
-                    if (masaNoObj == null)
-                    {
-                        MessageBox.Show("Bu kart numarasıyla atanmış herhangi bir masa bulunamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    int masaNo = (int)masaNoObj;
-                    ReleaseTable(masaNo);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
         private void ReleaseTable(int masaNo)
         {
@@ -148,6 +119,7 @@ namespace KutuphaneOtomasyon
                 MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void UpdateTableStatus()
         {
