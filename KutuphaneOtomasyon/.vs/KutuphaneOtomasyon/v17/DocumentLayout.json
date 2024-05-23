@@ -1,0 +1,116 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Harun\\Desktop\\Yeni klas\u00F6r (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|c:\\users\\harun\\desktop\\yeni klas\u00F6r (3)\\kutuphanearayuz\\kutuphaneotomasyon\\cikisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:cikisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|c:\\users\\harun\\desktop\\yeni klas\u00F6r (3)\\kutuphanearayuz\\kutuphaneotomasyon\\cikisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:cikisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|c:\\users\\harun\\desktop\\yeni klas\u00F6r (3)\\kutuphanearayuz\\kutuphaneotomasyon\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|c:\\users\\harun\\desktop\\yeni klas\u00F6r (3)\\kutuphanearayuz\\kutuphaneotomasyon\\girisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:girisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|C:\\Users\\Harun\\Desktop\\Yeni klas\u00F6r (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\girisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:girisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GirisForm.cs",
+              "DocumentMoniker": "C:\\Users\\Harun\\Desktop\\Yeni klas\u00F6r (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\GirisForm.cs",
+              "RelativeDocumentMoniker": "GirisForm.cs",
+              "ToolTip": "C:\\Users\\Harun\\Desktop\\Yeni klas\u00F6r (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\GirisForm.cs",
+              "RelativeToolTip": "GirisForm.cs",
+              "ViewState": "AQIAAJUAAAAAAAAAAAAAAJ8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-25T18:54:07.696Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GirisForm.cs [Tasar\u0131m]",
+              "DocumentMoniker": "C:\\Users\\Harun\\Desktop\\Yeni klas\u00F6r (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\GirisForm.cs",
+              "RelativeDocumentMoniker": "GirisForm.cs",
+              "ToolTip": "C:\\Users\\Harun\\Desktop\\Yeni klas\u00F6r (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\GirisForm.cs [Tasar\u0131m]",
+              "RelativeToolTip": "GirisForm.cs [Tasar\u0131m]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-27T21:10:46.595Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Harun\\Desktop\\Yeni klas\u00F6r (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Harun\\Desktop\\Yeni klas\u00F6r (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAwA0AAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-18T10:24:15.512Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CikisForm.cs",
+              "DocumentMoniker": "C:\\Users\\Harun\\Desktop\\Yeni klas\u00F6r (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\CikisForm.cs",
+              "RelativeDocumentMoniker": "CikisForm.cs",
+              "ToolTip": "C:\\Users\\Harun\\Desktop\\Yeni klas\u00F6r (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\CikisForm.cs",
+              "RelativeToolTip": "CikisForm.cs",
+              "ViewState": "AQIAADwAAAAAAAAAAAAAAEsAAABXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-25T12:10:54.837Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CikisForm.cs [Tasar\u0131m]",
+              "DocumentMoniker": "C:\\Users\\Harun\\Desktop\\Yeni klas\u00F6r (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\CikisForm.cs",
+              "RelativeDocumentMoniker": "CikisForm.cs",
+              "ToolTip": "C:\\Users\\Harun\\Desktop\\Yeni klas\u00F6r (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\CikisForm.cs [Tasar\u0131m]",
+              "RelativeToolTip": "CikisForm.cs [Tasar\u0131m]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-18T07:20:19.899Z",
+              "EditorCaption": " [Tasar\u0131m]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
