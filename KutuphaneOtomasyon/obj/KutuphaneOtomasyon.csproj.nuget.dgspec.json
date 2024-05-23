@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Harun\\Desktop\\Yeni klasör (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj": {}
+    "C:\\Users\\Harun\\Desktop\\KutuphaneOtomasyonu\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Harun\\Desktop\\Yeni klasör (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj": {
+    "C:\\Users\\Harun\\Desktop\\KutuphaneOtomasyonu\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Harun\\Desktop\\Yeni klasör (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
+        "projectUniqueName": "C:\\Users\\Harun\\Desktop\\KutuphaneOtomasyonu\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
         "projectName": "KutuphaneOtomasyon",
-        "projectPath": "C:\\Users\\Harun\\Desktop\\Yeni klasör (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
+        "projectPath": "C:\\Users\\Harun\\Desktop\\KutuphaneOtomasyonu\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
         "packagesPath": "C:\\Users\\Harun\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Harun\\Desktop\\Yeni klasör (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\obj\\",
+        "outputPath": "C:\\Users\\Harun\\Desktop\\KutuphaneOtomasyonu\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Harun\\AppData\\Roaming\\NuGet\\NuGet.Config",

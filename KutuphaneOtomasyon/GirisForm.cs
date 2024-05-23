@@ -1,31 +1,118 @@
 using System;
-using System.Collections.Generic;
 using System.Drawing;
+using System.IO.Ports;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using System.Data.SqlTypes;
+using KutuphaneOtomasyon.Properties;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace KutuphaneOtomasyon
 {
     public partial class FormGiris : Form
     {
-
         int toplamMasaSayisi;
         int seciliMasaNumarasi;
         public delegate void TableAvailabilityChangedEventHandler(int tableNumber);
         public event TableAvailabilityChangedEventHandler OnTableAvailabilityChanged;
 
+        private SerialPort serialPort;
+        private string connectionString = "Data Source=DESKTOP-ODUR7D7;Initial Catalog=kutuphaneDB;Integrated Security=True";
 
         public FormGiris()
         {
             InitializeComponent();
             MasalariGetir();
             UpdateTableStatus();
+            InitializeSerialPort();
+        }
+
+        public void RegisterToExitFormEvents(CikisForm cikisForm)
+        {
+            cikisForm.OnTableReleased += OnTableReleased;
+        }
+
+        private void OnTableReleased(int masaNo)
+        {
+            UpdateTableStatus();
+        }
+
+        private void InitializeSerialPort()
+        {
+            string portName = "COM3";
+            int baudRate = 9600;
+
+            serialPort = new SerialPort(portName, baudRate);
+            serialPort.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);
+            //serialPort.Open();
 
         }
 
-        string connectionString = "Data Source=DESKTOP-ODUR7D7;Initial Catalog=kutuphaneDB;Integrated Security=True";
+        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            try
+            {
+                string data = serialPort.ReadLine().Trim();
+                this.Invoke(new Action(() => ProcessReceivedData(data)));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Veri okunamadý: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
+        private void ProcessReceivedData(string data)
+        {
+            string ogrenciKartNumarasi = data;
+            if (seciliMasaNumarasi == 0)
+            {
+                MessageBox.Show("Lütfen önce masa numarasýný giriniz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string query = "SELECT COUNT(*) FROM Tbl_Ogrenciler WHERE ogrenciNo = @ogrenciNo";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ogrenciNo", ogrenciKartNumarasi);
+                connection.Open();
+                int ogrenciCount = (int)command.ExecuteScalar();
+
+                if (ogrenciCount > 0)
+                {
+                    query = "SELECT COUNT(*) FROM Tbl_Masalar WHERE ogrenciNo = @ogrenciNo";
+                    command.CommandText = query;
+                    command.Parameters.Clear();
+                    command.Parameters.AddWithValue("@ogrenciNo", ogrenciKartNumarasi);
+                    int masaCount = (int)command.ExecuteScalar();
+
+                    if (masaCount > 0)
+                    {
+                        MessageBox.Show("Bu öðrenci numarasýna zaten bir masa atanmýþ! Lütfen baþka bir kart okutunuz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        query = "UPDATE Tbl_Masalar SET isAvaible = 0, ogrenciNo = (SELECT ogrenciNo FROM Tbl_Ogrenciler WHERE ogrenciNo = @ogrenciNo) WHERE MasaNo = @masaNo";
+                        command.CommandText = query;
+                        command.Parameters.AddWithValue("@masaNo", seciliMasaNumarasi);
+                        command.ExecuteNonQuery();
+
+                        Control[] controls = masalarGroupBox.Controls.Find("masa" + seciliMasaNumarasi.ToString(), true);
+                        if (controls.Length > 0 && controls[0] is PictureBox pictureBox)
+                        {
+                            pictureBox.BackColor = Color.Red;
+                        }
+
+                        MessageBox.Show($"Seçilen masa numarasý: {seciliMasaNumarasi}\n\nMasayý baþarýyla seçtiniz.", "Masa Seçildi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        OnTableAvailabilityChanged?.Invoke(seciliMasaNumarasi);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Geçersiz kart numarasý! Lütfen geçerli bir kart okutunuz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
 
         private void MasalariGetir()
         {
@@ -33,7 +120,6 @@ namespace KutuphaneOtomasyon
             {
                 string query = "SELECT COUNT(*) AS MasaAdet FROM Tbl_Masalar";
                 SqlCommand command = new SqlCommand(query, connection);
-
 
                 connection.Open();
                 int masaAdet = (int)command.ExecuteScalar();
@@ -46,7 +132,7 @@ namespace KutuphaneOtomasyon
                 {
                     PictureBox pictureBox = new PictureBox();
                     pictureBox.Name = "masa" + (i + 1).ToString();
-                    pictureBox.Image = Image.FromFile("C:\\Users\\Harun\\Desktop\\Yeni klasör (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\Resources\\desk.png");
+                    pictureBox.Image = Image.FromFile("C:\\Users\\Harun\\Desktop\\KutuphaneOtomasyonu\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\Resources\\desk.png");
                     pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBox.Width = resimBoyutu;
                     pictureBox.Height = resimBoyutu;
@@ -59,20 +145,14 @@ namespace KutuphaneOtomasyon
 
                     masalarGroupBox.Controls.Add(label);
                     masalarGroupBox.Controls.Add(pictureBox);
-
-                    seciliMasaNumarasi = i + 1;
-
                 }
-
             }
         }
-
 
         private void masaNoTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-
                 if (int.TryParse(masaNoTextBox.Text, out seciliMasaNumarasi))
                 {
                     if (seciliMasaNumarasi >= 1 && seciliMasaNumarasi <= toplamMasaSayisi)
@@ -83,34 +163,16 @@ namespace KutuphaneOtomasyon
                             SqlCommand command = new SqlCommand(query, connection);
                             command.Parameters.AddWithValue("@masaNo", seciliMasaNumarasi);
 
-
                             connection.Open();
                             bool isAvailable = (bool)command.ExecuteScalar();
                             if (isAvailable)
                             {
-                                MessageBox.Show($"Seçilen masa numarasý: {seciliMasaNumarasi}\n\nMasayý baþarýyla seçtiniz.", "Masa Seçildi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                // Masa dolu olduðunda arka planý kýrmýzý yap
-                                Control[] controls = masalarGroupBox.Controls.Find("masa" + seciliMasaNumarasi.ToString(), true);
-                                if (controls.Length > 0 && controls[0] is PictureBox)
-                                {
-                                    PictureBox pictureBox = (PictureBox)controls[0];
-                                    pictureBox.BackColor = Color.Red;
-                                }
-
-
-                                // Masa durumunu veritabanýnda güncelle
-                                query = "UPDATE Tbl_Masalar SET isAvaible = 0 WHERE MasaNo = @masaNo";
-                                command.CommandText = query;
-                                command.ExecuteNonQuery();
+                                MessageBox.Show("Lütfen kartýnýzý okutunuz.", "Kart Okuma", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                             else
                             {
                                 MessageBox.Show("Seçilen masa dolu! Lütfen baþka bir masa seçin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
-
-                            OnTableAvailabilityChanged?.Invoke(seciliMasaNumarasi);
-
                         }
                     }
                     else
@@ -120,7 +182,6 @@ namespace KutuphaneOtomasyon
                 }
             }
         }
-
 
         private void UpdateTableStatus()
         {
@@ -136,7 +197,6 @@ namespace KutuphaneOtomasyon
                 {
                     int masaNo = Convert.ToInt32(reader["MasaNo"]);
                     bool isAvailable = Convert.ToBoolean(reader["isAvaible"]);
-
 
                     Control[] controls = masalarGroupBox.Controls.Find("masa" + masaNo.ToString(), true);
                     if (controls.Length > 0 && controls[0] is PictureBox)
@@ -154,23 +214,7 @@ namespace KutuphaneOtomasyon
                     }
                     OnTableAvailabilityChanged?.Invoke(masaNo);
                 }
-
             }
-        }
-
-        private void masaNoTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

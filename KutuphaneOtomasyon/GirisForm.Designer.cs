@@ -140,7 +140,6 @@
             masaNoTextBox.Size = new Size(359, 30);
             masaNoTextBox.TabIndex = 3;
             masaNoTextBox.TextAlign = HorizontalAlignment.Center;
-            masaNoTextBox.TextChanged += masaNoTextBox_TextChanged;
             masaNoTextBox.KeyDown += masaNoTextBox_KeyDown;
             // 
             // pictureBox1
@@ -166,7 +165,6 @@
             label1.Size = new Size(904, 180);
             label1.TabIndex = 12;
             label1.Text = "Prof. Dr. Durmuş Günay \r\n          Kütüphanesi";
-            label1.Click += label1_Click;
             // 
             // label2
             // 

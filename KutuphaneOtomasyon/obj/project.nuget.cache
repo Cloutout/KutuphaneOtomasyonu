@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xhQ5Ee0/ZDk=",
+  "dgSpecHash": "fvPGOQSCGv4=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Harun\\Desktop\\Yeni klasör (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
+  "projectFilePath": "C:\\Users\\Harun\\Desktop\\KutuphaneOtomasyonu\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Harun\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Harun\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

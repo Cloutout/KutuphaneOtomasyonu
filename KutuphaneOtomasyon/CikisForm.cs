@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO.Ports;
 using System.Windows.Forms;
 
 namespace KutuphaneOtomasyon
@@ -10,6 +11,10 @@ namespace KutuphaneOtomasyon
         int toplamMasaSayisi;
         string connectionString = "Data Source=DESKTOP-ODUR7D7;Initial Catalog=kutuphaneDB;Integrated Security=True;";
         private FormGiris _girisForm;
+        private SerialPort _serialPort;
+        // Yeni event tanımlama
+        public delegate void TableReleasedEventHandler(int tableNumber);
+        public event TableReleasedEventHandler OnTableReleased;
 
         public CikisForm(FormGiris girisForm)
         {
@@ -21,6 +26,31 @@ namespace KutuphaneOtomasyon
 
             // Giriş formundan gelen etkinliği dinle
             _girisForm.OnTableAvailabilityChanged += OnTableAvailabilityChanged;
+
+            // Seri port ayarları
+            _serialPort = new SerialPort("COM7", 9600);
+            _serialPort.DataReceived += SerialPort_DataReceived;
+            //_serialPort.Open();
+        }
+
+        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            try
+            {
+                string kartVerisi = _serialPort.ReadLine().Trim();
+                if (!string.IsNullOrEmpty(kartVerisi))
+                {
+                    // Seri porttan gelen veriyi işlemek için Invoke kullan
+                    this.Invoke(new Action(() =>
+                    {
+                        ReleaseTableByStudentNumber(kartVerisi);
+                    }));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Seri porttan veri okuma hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void OnTableAvailabilityChanged(int tableNumber)
@@ -69,7 +99,7 @@ namespace KutuphaneOtomasyon
                         PictureBox pictureBox = new PictureBox
                         {
                             Name = "masa" + (i + 1),
-                            Image = Image.FromFile("C:\\Users\\Harun\\Desktop\\Yeni klasör (3)\\KutuphaneArayuz\\KutuphaneOtomasyon\\Resources\\desk.png"),
+                            Image = Image.FromFile("C:\\Users\\Harun\\Desktop\\KutuphaneOtomasyonu\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\Resources\\desk.png"),
                             SizeMode = PictureBoxSizeMode.StretchImage,
                             Width = resimBoyutu,
                             Height = resimBoyutu,
@@ -94,36 +124,6 @@ namespace KutuphaneOtomasyon
             }
         }
 
-        private void RFIDCardScanned(string rfidCardNumber)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-
-                    // Öğrencinin atanmış bir masa olup olmadığını kontrol et
-                    string query = "SELECT MasaNo FROM Tbl_Masalar WHERE ogrenciNo = @rfidCardNumber";
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@rfidCardNumber", rfidCardNumber);
-
-                    object masaNoObj = command.ExecuteScalar();
-                    if (masaNoObj == null)
-                    {
-                        MessageBox.Show("Bu kart numarasıyla atanmış herhangi bir masa bulunamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    int masaNo = (int)masaNoObj;
-                    ReleaseTable(masaNo);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void ReleaseTable(int masaNo)
         {
             try
@@ -141,6 +141,45 @@ namespace KutuphaneOtomasyon
 
                     // Masanın durumunu güncelledikten sonra görsel arayüzde de güncelle
                     UpdateTableVisual(masaNo, Color.Green);
+
+                    // Event'i tetikleme
+                    OnTableReleased?.Invoke(masaNo);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ReleaseTableByStudentNumber(string ogrenciNo)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "UPDATE Tbl_Masalar SET isAvaible = 1, ogrenciNo = NULL WHERE ogrenciNo = @ogrenciNo";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@ogrenciNo", ogrenciNo);
+
+                    connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show($"Öğrenci numarası: {ogrenciNo}\n\nMasa başarıyla boşaltıldı.", "Masa Boşaltıldı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        UpdateTableStatus();
+
+                        // Event'i tetikleme
+                        for (int i = 1; i <= toplamMasaSayisi; i++)
+                        {
+                            OnTableReleased?.Invoke(i);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Öğrenci numarası: {ogrenciNo}\n\nEşleşen kayıt bulunamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             catch (Exception ex)
