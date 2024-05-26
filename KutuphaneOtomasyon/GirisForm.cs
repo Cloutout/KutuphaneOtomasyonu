@@ -49,15 +49,10 @@ namespace KutuphaneOtomasyon
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            try
-            {
+            
                 string data = serialPort.ReadLine().Trim();
                 this.Invoke(new Action(() => ProcessReceivedData(data)));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Veri okunamadý: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+           
         }
 
         private void ProcessReceivedData(string data)

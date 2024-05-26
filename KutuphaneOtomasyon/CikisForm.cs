@@ -35,8 +35,7 @@ namespace KutuphaneOtomasyon
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            try
-            {
+           
                 string kartVerisi = _serialPort.ReadLine().Trim();
                 if (!string.IsNullOrEmpty(kartVerisi))
                 {
@@ -46,11 +45,7 @@ namespace KutuphaneOtomasyon
                         ReleaseTableByStudentNumber(kartVerisi);
                     }));
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Seri porttan veri okuma hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            
         }
 
         private void OnTableAvailabilityChanged(int tableNumber)
@@ -80,8 +75,7 @@ namespace KutuphaneOtomasyon
 
         private void MasalariGetir()
         {
-            try
-            {
+            
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     string query = "SELECT COUNT(*) AS MasaAdet FROM Tbl_Masalar";
@@ -117,17 +111,12 @@ namespace KutuphaneOtomasyon
                         masalarGroupBox.Controls.Add(pictureBox);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Tablolar alınırken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+           
         }
 
         private void ReleaseTable(int masaNo)
         {
-            try
-            {
+           
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     string query = "UPDATE Tbl_Masalar SET isAvaible = 1, ogrenciNo = NULL WHERE MasaNo = @masaNo";
@@ -145,17 +134,12 @@ namespace KutuphaneOtomasyon
                     // Event'i tetikleme
                     OnTableReleased?.Invoke(masaNo);
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+           
         }
 
         private void ReleaseTableByStudentNumber(string ogrenciNo)
         {
-            try
-            {
+            
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     string query = "UPDATE Tbl_Masalar SET isAvaible = 1, ogrenciNo = NULL WHERE ogrenciNo = @ogrenciNo";
@@ -181,17 +165,12 @@ namespace KutuphaneOtomasyon
                         MessageBox.Show($"Öğrenci numarası: {ogrenciNo}\n\nEşleşen kayıt bulunamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+           
         }
 
         private void UpdateTableStatus()
         {
-            try
-            {
+           
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     string query = "SELECT MasaNo, isAvaible FROM Tbl_Masalar";
@@ -207,11 +186,7 @@ namespace KutuphaneOtomasyon
                         UpdateTableVisual(masaNo, isAvailable ? Color.Green : Color.Red);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Tablo durumu güncellenirken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            
         }
 
         private void UpdateTableVisual(int masaNo, Color color)

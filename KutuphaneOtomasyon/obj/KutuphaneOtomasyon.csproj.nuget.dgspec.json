@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Harun\\Desktop\\KutuphaneOtomasyonu\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj": {}
+    "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Harun\\Desktop\\KutuphaneOtomasyonu\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj": {
+    "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Harun\\Desktop\\KutuphaneOtomasyonu\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
+        "projectUniqueName": "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
         "projectName": "KutuphaneOtomasyon",
-        "projectPath": "C:\\Users\\Harun\\Desktop\\KutuphaneOtomasyonu\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
-        "packagesPath": "C:\\Users\\Harun\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Harun\\Desktop\\KutuphaneOtomasyonu\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\obj\\",
+        "projectPath": "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
+        "packagesPath": "C:\\Users\\merti\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Harun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\merti\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
