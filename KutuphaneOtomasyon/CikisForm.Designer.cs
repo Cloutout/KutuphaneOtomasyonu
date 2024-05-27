@@ -34,6 +34,7 @@
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
             panel1 = new Panel();
+            textBox1 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
@@ -91,12 +92,21 @@
             panel1.Size = new Size(1776, 205);
             panel1.TabIndex = 3;
             // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(410, 240);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(354, 23);
+            textBox1.TabIndex = 4;
+            textBox1.KeyPress += textBox1_KeyPress;
+            // 
             // CikisForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1904, 1041);
+            Controls.Add(textBox1);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
             Controls.Add(label1);
@@ -117,5 +127,6 @@
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private Panel panel1;
+        private TextBox textBox1;
     }
 }

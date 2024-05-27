@@ -16,7 +16,7 @@ namespace KutuphaneOtomasyon
         public event TableAvailabilityChangedEventHandler OnTableAvailabilityChanged;
 
         private SerialPort serialPort;
-        private string connectionString = "Data Source=DESKTOP-ODUR7D7;Initial Catalog=kutuphaneDB;Integrated Security=True";
+        private string connectionString = "Data Source=MERT;Initial Catalog=kutuphaneDB;Integrated Security=True";
 
         public FormGiris()
         {
@@ -74,32 +74,32 @@ namespace KutuphaneOtomasyon
 
                 if (ogrenciCount > 0)
                 {
-                    query = "SELECT COUNT(*) FROM Tbl_Masalar WHERE ogrenciNo = @ogrenciNo";
+                    query = "SELECT isAvaible, MolaModu FROM Tbl_Masalar WHERE MasaNo = @masaNo";
                     command.CommandText = query;
                     command.Parameters.Clear();
-                    command.Parameters.AddWithValue("@ogrenciNo", ogrenciKartNumarasi);
-                    int masaCount = (int)command.ExecuteScalar();
+                    command.Parameters.AddWithValue("@masaNo", seciliMasaNumarasi);
+                    SqlDataReader reader = command.ExecuteReader();
+                    //command.Parameters.AddWithValue("@ogrenciNo", ogrenciKartNumarasi);
+                    //int masaCount = (int)command.ExecuteScalar();
 
-                    if (masaCount > 0)
+                    if (reader.Read())
                     {
-                        MessageBox.Show("Bu öðrenci numarasýna zaten bir masa atanmýþ! Lütfen baþka bir kart okutunuz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        query = "UPDATE Tbl_Masalar SET isAvaible = 0, ogrenciNo = (SELECT ogrenciNo FROM Tbl_Ogrenciler WHERE ogrenciNo = @ogrenciNo) WHERE MasaNo = @masaNo";
-                        command.CommandText = query;
-                        command.Parameters.AddWithValue("@masaNo", seciliMasaNumarasi);
-                        command.ExecuteNonQuery();
+                        bool isAvailable = Convert.ToBoolean(reader["isAvaible"]);
+                        bool molaModu = reader["MolaModu"] != DBNull.Value && Convert.ToBoolean(reader["MolaModu"]);
 
-                        Control[] controls = masalarGroupBox.Controls.Find("masa" + seciliMasaNumarasi.ToString(), true);
-                        if (controls.Length > 0 && controls[0] is PictureBox pictureBox)
+
+                        if (isAvailable)
                         {
-                            pictureBox.BackColor = Color.Red;
+                            AssignTableToStudent(ogrenciKartNumarasi);
                         }
-
-                        MessageBox.Show($"Seçilen masa numarasý: {seciliMasaNumarasi}\n\nMasayý baþarýyla seçtiniz.", "Masa Seçildi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        OnTableAvailabilityChanged?.Invoke(seciliMasaNumarasi);
+                        else if (molaModu)
+                        {
+                            RemoveMolaModuFromTable();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Seçilen masa dolu! Lütfen baþka bir masa seçin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
                 else
@@ -108,6 +108,70 @@ namespace KutuphaneOtomasyon
                 }
             }
         }
+
+        private void AssignTableToStudent(string ogrenciNo)
+        {
+            string query = "SELECT COUNT(*) FROM Tbl_Masalar WHERE ogrenciNo = @ogrenciNo";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ogrenciNo", ogrenciNo);
+                connection.Open();
+                int masaCount = (int)command.ExecuteScalar();
+
+                if (masaCount >= 1)
+                {
+                    MessageBox.Show("Öðrenci zaten bir masaya atanmýþ! Bir öðrenci yalnýzca bir masa kullanabilir.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            query = "UPDATE Tbl_Masalar SET isAvaible = 0, ogrenciNo = @ogrenciNo WHERE MasaNo = @masaNo AND isAvaible = 1";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ogrenciNo", ogrenciNo);
+                command.Parameters.AddWithValue("@masaNo", seciliMasaNumarasi);
+
+                connection.Open();
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show($"Masa numarasý: {seciliMasaNumarasi}\n\nÖðrenciye masa baþarýyla atanmýþtýr.", "Masa Atama", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    OnTableAvailabilityChanged?.Invoke(seciliMasaNumarasi);
+                }
+                else
+                {
+                    MessageBox.Show($"Masa numarasý: {seciliMasaNumarasi}\n\nMasa öðrenciye atanamadý veya zaten dolu.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            UpdateTableStatus();
+        }
+        private void RemoveMolaModuFromTable()
+        {
+            string query = "UPDATE Tbl_Masalar SET MolaModu = 0 WHERE MasaNo = @masaNo";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@masaNo", seciliMasaNumarasi);
+
+                connection.Open();
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show($"Masa numarasý: {seciliMasaNumarasi}\n\nMasa mola modundan çýkarýlmýþtýr.", "Mola Modu Kaldýrýldý", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    OnTableAvailabilityChanged?.Invoke(seciliMasaNumarasi);
+                }
+                else
+                {
+                    MessageBox.Show($"Masa numarasý: {seciliMasaNumarasi}\n\nMasa mola modundan çýkarýlamadý.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            UpdateTableStatus();
+        }
+
+
 
         private void MasalariGetir()
         {
@@ -127,7 +191,7 @@ namespace KutuphaneOtomasyon
                 {
                     PictureBox pictureBox = new PictureBox();
                     pictureBox.Name = "masa" + (i + 1).ToString();
-                    pictureBox.Image = Image.FromFile("C:\\Users\\Harun\\Desktop\\KutuphaneOtomasyonu\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\Resources\\desk.png");
+                    pictureBox.Image = Image.FromFile("C:\\Users\\merti\\OneDrive\\Masaüstü\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\Resources\\desk.png");
                     pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBox.Width = resimBoyutu;
                     pictureBox.Height = resimBoyutu;
@@ -178,11 +242,11 @@ namespace KutuphaneOtomasyon
             }
         }
 
-        private void UpdateTableStatus()
+        public void UpdateTableStatus()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT MasaNo, isAvaible FROM Tbl_Masalar";
+                string query = "SELECT MasaNo, isAvaible, ISNULL(MolaModu, 0) AS MolaModu FROM Tbl_Masalar";
                 SqlCommand command = new SqlCommand(query, connection);
 
                 connection.Open();
@@ -192,20 +256,24 @@ namespace KutuphaneOtomasyon
                 {
                     int masaNo = Convert.ToInt32(reader["MasaNo"]);
                     bool isAvailable = Convert.ToBoolean(reader["isAvaible"]);
+                    bool molaModu = Convert.ToBoolean(reader["MolaModu"]);
+
+                    Color color;
+
+                    if (molaModu)
+                    {
+                        color = Color.Yellow;
+                    }
+                    else
+                    {
+                        color = isAvailable ? Color.Green : Color.Red;
+                    }
 
                     Control[] controls = masalarGroupBox.Controls.Find("masa" + masaNo.ToString(), true);
                     if (controls.Length > 0 && controls[0] is PictureBox)
                     {
                         PictureBox pictureBox = (PictureBox)controls[0];
-
-                        if (isAvailable)
-                        {
-                            pictureBox.BackColor = Color.Green;
-                        }
-                        else
-                        {
-                            pictureBox.BackColor = Color.Red;
-                        }
+                        pictureBox.BackColor = color;
                     }
                     OnTableAvailabilityChanged?.Invoke(masaNo);
                 }
