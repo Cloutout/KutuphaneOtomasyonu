@@ -98,7 +98,6 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(354, 23);
             textBox1.TabIndex = 4;
-            textBox1.KeyPress += textBox1_KeyPress;
             // 
             // CikisForm
             // 

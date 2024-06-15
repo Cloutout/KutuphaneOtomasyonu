@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8tqAFk+89/w=",
+  "dgSpecHash": "MqEWOw4D/zE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonuRFID\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
+  "projectFilePath": "C:\\Users\\merti\\OneDrive\\Masaüstü\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\merti\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\merti\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

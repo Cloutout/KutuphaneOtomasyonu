@@ -25,10 +25,10 @@ namespace KutuphaneOtomasyon
             MasalariGetir();
             UpdateTableStatus();
             CheckMolaModu();
-
+            
             _girisForm.OnTableAvailabilityChanged += OnTableAvailabilityChanged;
 
-
+            
             _serialPort = new SerialPort("COM7", 9600);
             _serialPort.DataReceived += SerialPort_DataReceived;
             //_serialPort.Open();
@@ -92,35 +92,19 @@ namespace KutuphaneOtomasyon
         }
 
 
-        private void HandleCardData(string kartVerisi)
-        {
-            if (!string.IsNullOrEmpty(kartVerisi))
-            {
-                if (textBox1.Text == "1")
-                {
-                    SetMolaModuByStudentNumber(kartVerisi, true);
-                }
-                else if (textBox1.Text == "2")
-                {
-                    ReleaseTableByStudentNumber(kartVerisi);
-                }
-            }
-        }
-
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            string kartVerisi = _serialPort.ReadLine().Trim();
-            HandleCardData(kartVerisi);
-        }
-
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                MessageBox.Show("Öğrenci Kartınızı Okutunuz");
-                string kartVerisi = _serialPort.ReadExisting().Trim();
-                HandleCardData(kartVerisi);
-            }
+           
+                string kartVerisi = _serialPort.ReadLine().Trim();
+                if (!string.IsNullOrEmpty(kartVerisi))
+                {
+                    
+                    this.Invoke(new Action(() =>
+                    {
+                        ReleaseTableByStudentNumber(kartVerisi);
+                    }));
+                }
+            
         }
 
         private void OnTableAvailabilityChanged(int tableNumber)
@@ -150,122 +134,122 @@ namespace KutuphaneOtomasyon
 
         private void MasalariGetir()
         {
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "SELECT COUNT(*) AS MasaAdet FROM Tbl_Masalar";
-                SqlCommand command = new SqlCommand(query, connection);
-
-                connection.Open();
-                int masaAdet = (int)command.ExecuteScalar();
-                toplamMasaSayisi = masaAdet;
-
-                int resimBoyutu = 100;
-                int sıraSayısı = (int)Math.Ceiling((double)masaAdet / 3);
-
-                for (int i = 0; i < masaAdet; i++)
+            
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    PictureBox pictureBox = new PictureBox
-                    {
-                        Name = "masa" + (i + 1),
-                        Image = Image.FromFile("C:\\Users\\merti\\OneDrive\\Masaüstü\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\Resources\\desk.png"),
-                        SizeMode = PictureBoxSizeMode.StretchImage,
-                        Width = resimBoyutu,
-                        Height = resimBoyutu,
-                        Location = new Point((i % 16) * (resimBoyutu + 10), (i / 16) * (resimBoyutu + 30))
-                    };
+                    string query = "SELECT COUNT(*) AS MasaAdet FROM Tbl_Masalar";
+                    SqlCommand command = new SqlCommand(query, connection);
 
-                    Label label = new Label
-                    {
-                        Text = "Masa No: " + (i + 1),
-                        AutoSize = true,
-                        Location = new Point(pictureBox.Location.X, pictureBox.Location.Y + resimBoyutu)
-                    };
+                    connection.Open();
+                    int masaAdet = (int)command.ExecuteScalar();
+                    toplamMasaSayisi = masaAdet;
 
-                    masalarGroupBox.Controls.Add(label);
-                    masalarGroupBox.Controls.Add(pictureBox);
+                    int resimBoyutu = 100;
+                    int sıraSayısı = (int)Math.Ceiling((double)masaAdet / 3);
+
+                    for (int i = 0; i < masaAdet; i++)
+                    {
+                        PictureBox pictureBox = new PictureBox
+                        {
+                            Name = "masa" + (i + 1),
+                            Image = Image.FromFile("C:\\Users\\merti\\OneDrive\\Masaüstü\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\Resources\\desk.png"),
+                            SizeMode = PictureBoxSizeMode.StretchImage,
+                            Width = resimBoyutu,
+                            Height = resimBoyutu,
+                            Location = new Point((i % 16) * (resimBoyutu + 10), (i / 16) * (resimBoyutu + 30))
+                        };
+
+                        Label label = new Label
+                        {
+                            Text = "Masa No: " + (i + 1),
+                            AutoSize = true,
+                            Location = new Point(pictureBox.Location.X, pictureBox.Location.Y + resimBoyutu)
+                        };
+
+                        masalarGroupBox.Controls.Add(label);
+                        masalarGroupBox.Controls.Add(pictureBox);
+                    }
                 }
-            }
-
+           
         }
 
         private void ReleaseTable(int masaNo)
         {
+           
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "UPDATE Tbl_Masalar SET isAvaible = 1, ogrenciNo = NULL, MolaModu = 0, MolaBaslangicZamani = NULL WHERE MasaNo = @masaNo";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@masaNo", masaNo);
+                    command.Parameters.AddWithValue("@molaBaslangicZamani", DateTime.Now);
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "UPDATE Tbl_Masalar SET isAvaible = 1, ogrenciNo = NULL, MolaModu = 0, MolaBaslangicZamani = NULL WHERE MasaNo = @masaNo";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@masaNo", masaNo);
-                command.Parameters.AddWithValue("@molaBaslangicZamani", DateTime.Now);
+                    connection.Open();
+                    command.ExecuteNonQuery();
 
-                connection.Open();
-                command.ExecuteNonQuery();
+                    MessageBox.Show($"Masa numarası: {masaNo}\n\nMasa başarıyla boşaltıldı.", "Masa Boşaltıldı", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                MessageBox.Show($"Masa numarası: {masaNo}\n\nMasa başarıyla boşaltıldı.", "Masa Boşaltıldı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+                    UpdateTableVisual(masaNo, Color.Green);
 
+                    
+                    OnTableReleased?.Invoke(masaNo);
 
-                UpdateTableVisual(masaNo, Color.Green);
-
-
-                OnTableReleased?.Invoke(masaNo);
-
-                _girisForm.UpdateTableStatus();
-                UpdateTableStatus();
+                    _girisForm.UpdateTableStatus();
+                    UpdateTableStatus();
             }
-
+           
         }
 
         private void ReleaseTableByStudentNumber(string ogrenciNo)
         {
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "UPDATE Tbl_Masalar SET isAvaible = 1, ogrenciNo = NULL, MolaModu = 0, MolaBaslangicZamani = NULL WHERE ogrenciNo = @ogrenciNo";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@ogrenciNo", ogrenciNo);
-
-                connection.Open();
-                int rowsAffected = command.ExecuteNonQuery();
-
-                if (rowsAffected > 0)
+            
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    MessageBox.Show($"Öğrenci numarası: {ogrenciNo}\n\nMasa başarıyla boşaltıldı.", "Masa Boşaltıldı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    UpdateTableStatus();
+                    string query = "UPDATE Tbl_Masalar SET isAvaible = 1, ogrenciNo = NULL, MolaModu = 0, MolaBaslangicZamani = NULL WHERE ogrenciNo = @ogrenciNo";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@ogrenciNo", ogrenciNo);
 
+                    connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery();
 
-                    for (int i = 1; i <= toplamMasaSayisi; i++)
+                    if (rowsAffected > 0)
                     {
-                        OnTableReleased?.Invoke(i);
+                        MessageBox.Show($"Öğrenci numarası: {ogrenciNo}\n\nMasa başarıyla boşaltıldı.", "Masa Boşaltıldı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        UpdateTableStatus();
+
+                        
+                        for (int i = 1; i <= toplamMasaSayisi; i++)
+                        {
+                            OnTableReleased?.Invoke(i);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Öğrenci numarası: {ogrenciNo}\n\nEşleşen kayıt bulunamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                else
-                {
-                    MessageBox.Show($"Öğrenci numarası: {ogrenciNo}\n\nEşleşen kayıt bulunamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-
+           
         }
 
         private void UpdateTableStatus()
         {
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "SELECT MasaNo, isAvaible FROM Tbl_Masalar";
-                SqlCommand command = new SqlCommand(query, connection);
-
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+           
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    int masaNo = Convert.ToInt32(reader["MasaNo"]);
-                    bool isAvailable = Convert.ToBoolean(reader["isAvaible"]);
-                    UpdateTableVisual(masaNo, isAvailable ? Color.Green : Color.Red);
-                }
-            }
+                    string query = "SELECT MasaNo, isAvaible FROM Tbl_Masalar";
+                    SqlCommand command = new SqlCommand(query, connection);
 
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        int masaNo = Convert.ToInt32(reader["MasaNo"]);
+                        bool isAvailable = Convert.ToBoolean(reader["isAvaible"]);
+                        UpdateTableVisual(masaNo, isAvailable ? Color.Green : Color.Red);
+                    }
+                }
+            
         }
 
         private void UpdateTableVisual(int masaNo, Color color)
@@ -284,7 +268,25 @@ namespace KutuphaneOtomasyon
             }
         }
 
-        
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                string kartVerisi = Microsoft.VisualBasic.Interaction.InputBox("Lütfen Kartınızı Okutun!", "RFID Kart Okuma", "");
+
+                if (!string.IsNullOrEmpty(kartVerisi))
+                {
+                    if (textBox1.Text == "1")
+                    {
+                        SetMolaModuByStudentNumber(kartVerisi, true);
+                    }
+                    else if (textBox1.Text == "2")
+                    {
+                        ReleaseTableByStudentNumber(kartVerisi);
+                    }
+                }
+            }
+        }
 
         private void SetMolaModuByStudentNumber(string ogrenciNo, bool molaModu)
         {
@@ -382,6 +384,18 @@ namespace KutuphaneOtomasyon
             }
         }
 
-       
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
