@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\merti\\OneDrive\\Masaüstü\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj": {}
+    "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj": {}
   },
   "projects": {
-    "C:\\Users\\merti\\OneDrive\\Masaüstü\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj": {
+    "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\merti\\OneDrive\\Masaüstü\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
+        "projectUniqueName": "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
         "projectName": "KutuphaneOtomasyon",
-        "projectPath": "C:\\Users\\merti\\OneDrive\\Masaüstü\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
+        "projectPath": "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\KutuphaneOtomasyon.csproj",
         "packagesPath": "C:\\Users\\merti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\merti\\OneDrive\\Masaüstü\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\obj\\",
+        "outputPath": "C:\\Users\\merti\\OneDrive\\Masaüstü\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

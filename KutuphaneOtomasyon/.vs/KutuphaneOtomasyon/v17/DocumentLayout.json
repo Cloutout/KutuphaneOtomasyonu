@@ -1,25 +1,37 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\",
+  "WorkspaceRootPath": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|c:\\users\\merti\\onedrive\\masa\u00FCst\u00FC\\rfid\\kutuphaneotomasyonu-main\\kutuphaneotomasyon\\girisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|c:\\users\\merti\\onedrive\\masa\u00FCst\u00FC\\kutuphaneotomasyonu\\kutuphaneotomasyon\\guvenlikekraniform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:guvenlikekraniform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|c:\\users\\merti\\onedrive\\masa\u00FCst\u00FC\\kutuphaneotomasyonu\\kutuphaneotomasyon\\guvenlikekraniform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:guvenlikekraniform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|c:\\users\\merti\\onedrive\\masa\u00FCst\u00FC\\kutuphaneotomasyonu\\kutuphaneotomasyon\\guvenlikekraniform.resx||{FF4D6ACA-9352-4A5F-821E-F4D6EBDCAB11}",
+      "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:guvenlikekraniform.resx||{FF4D6ACA-9352-4A5F-821E-F4D6EBDCAB11}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|c:\\users\\merti\\onedrive\\masa\u00FCst\u00FC\\kutuphaneotomasyonu\\kutuphaneotomasyon\\girisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:girisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|c:\\users\\merti\\onedrive\\masa\u00FCst\u00FC\\rfid\\kutuphaneotomasyonu-main\\kutuphaneotomasyon\\cikisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|c:\\users\\merti\\onedrive\\masa\u00FCst\u00FC\\kutuphaneotomasyonu\\kutuphaneotomasyon\\cikisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:cikisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\girisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\girisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:girisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\cikisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\cikisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:cikisform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|c:\\users\\merti\\onedrive\\masa\u00FCst\u00FC\\rfid\\kutuphaneotomasyonu-main\\kutuphaneotomasyon\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|c:\\users\\merti\\onedrive\\masa\u00FCst\u00FC\\kutuphaneotomasyonu\\kutuphaneotomasyon\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{73A86CD1-69EE-457F-960C-8FB7A41366D8}|KutuphaneOtomasyon.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -30,15 +42,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "GirisForm.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\GirisForm.cs",
+              "DocumentMoniker": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\GirisForm.cs",
               "RelativeDocumentMoniker": "GirisForm.cs",
-              "ToolTip": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\GirisForm.cs [Design]",
+              "ToolTip": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\GirisForm.cs [Design]",
               "RelativeToolTip": "GirisForm.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-27T21:10:46.595Z",
@@ -47,11 +59,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\Program.cs",
+              "ToolTip": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\Program.cs",
               "RelativeToolTip": "Program.cs",
               "ViewState": "AQIAAAIAAAAAAAAAAAAqwBQAAAA6AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -60,11 +72,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "CikisForm.cs",
-              "DocumentMoniker": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\CikisForm.cs",
+              "DocumentMoniker": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\CikisForm.cs",
               "RelativeDocumentMoniker": "CikisForm.cs",
-              "ToolTip": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\CikisForm.cs",
+              "ToolTip": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\CikisForm.cs",
               "RelativeToolTip": "CikisForm.cs",
               "ViewState": "AQIAAIkAAAAAAAAAAAAwwJoAAAChAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -74,15 +86,53 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "CikisForm.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\CikisForm.cs",
+              "DocumentMoniker": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\CikisForm.cs",
               "RelativeDocumentMoniker": "CikisForm.cs",
               "ToolTip": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\CikisForm.cs [Design]",
-              "RelativeToolTip": "CikisForm.cs [Design]",
+              "RelativeToolTip": "..\\..\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\CikisForm.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-18T07:20:19.899Z",
               "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GuvenlikEkraniForm.cs",
+              "DocumentMoniker": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\GuvenlikEkraniForm.cs",
+              "RelativeDocumentMoniker": "GuvenlikEkraniForm.cs",
+              "ToolTip": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\GuvenlikEkraniForm.cs",
+              "RelativeToolTip": "GuvenlikEkraniForm.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-08T17:00:15.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GuvenlikEkraniForm.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\GuvenlikEkraniForm.Designer.cs",
+              "RelativeDocumentMoniker": "GuvenlikEkraniForm.Designer.cs",
+              "ToolTip": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\GuvenlikEkraniForm.Designer.cs",
+              "RelativeToolTip": "GuvenlikEkraniForm.Designer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAxwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-08T17:00:14.727Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GuvenlikEkraniForm.resx",
+              "DocumentMoniker": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\GuvenlikEkraniForm.resx",
+              "RelativeDocumentMoniker": "GuvenlikEkraniForm.resx",
+              "ToolTip": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\GuvenlikEkraniForm.resx",
+              "RelativeToolTip": "GuvenlikEkraniForm.resx",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
+              "WhenOpened": "2024-09-08T17:00:14.713Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -98,11 +148,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "GirisForm.cs",
-              "DocumentMoniker": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\GirisForm.cs",
+              "DocumentMoniker": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\GirisForm.cs",
               "RelativeDocumentMoniker": "GirisForm.cs",
-              "ToolTip": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\RFID\\KutuphaneOtomasyonu-main\\KutuphaneOtomasyon\\GirisForm.cs",
+              "ToolTip": "C:\\Users\\merti\\OneDrive\\Masa\u00FCst\u00FC\\KutuphaneOtomasyonu\\KutuphaneOtomasyon\\GirisForm.cs",
               "RelativeToolTip": "GirisForm.cs",
               "ViewState": "AQIAAAkBAAAAAAAAAAAAABYBAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
